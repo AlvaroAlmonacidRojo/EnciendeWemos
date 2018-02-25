@@ -1,0 +1,28 @@
+body{
+    background: #737C9F;
+    height: min-content;
+}
+.formulario{
+    border-radius: 15px;
+    background: #212E63;
+    margin-top: 20%;
+    margin-left: 2em;
+    margin-right: 2em;
+    padding: 4em;
+    color: white;
+    box-shadow: gray 5px 5px 5px;
+}
+
+.wemos{
+    border-radius: 15px;
+    background: #212E63;
+    margin-top: 3em;
+    padding: 3em;
+    color: white;
+    box-shadow: gray 5px 5px 5px;
+}
+
+nav {
+    background: #212E63;
+    padding: 3em;
+}
