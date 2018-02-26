@@ -80,4 +80,28 @@ class DAORele {
 		}
 
 	}
+
+	public function addRele($rele){
+		$conn = Conexion::getPDO();
+		$ordenSql = "INSERT INTO rele (description,state,macWemos,name) VALUES (:description,0,:macWemos,:name)";
+		$statement=$conn->prepare($ordenSql);
+		$statement->bindParam ( ':description',$rele->getDescription(), PDO::PARAM_STR);
+		$statement->bindParam ( ':macWemos',$rele->getMacWemos(), PDO::PARAM_STR);
+		$statement->bindParam(':name',$rele->getName(),PDO::PARAM_STR);
+
+		try{
+			$statement->execute();
+			if($statement->rowCount()>0){
+				return true;
+			}else{
+				return false;
+			}
+
+		}catch (PDOException $e){
+			echo $statement->errorInfo();
+		}finally{
+			$statement=NULL;
+			$conn=NULL;
+		}
+	}
 }

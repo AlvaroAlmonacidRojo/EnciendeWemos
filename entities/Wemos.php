@@ -10,6 +10,8 @@ class Wemos {
 	private $mac;
 	private $name;
 	private $state;
+	private $lastMessage;
+	private $validado;
 	private $listaReles = array();
 
 	/**
@@ -66,6 +68,34 @@ class Wemos {
 	 */
 	public function setListaReles( $listaReles ): void {
 		$this->listaReles = $listaReles;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getLastMessage() {
+		return $this->lastMessage;
+	}
+
+	/**
+	 * @param mixed $lastMessage
+	 */
+	public function setLastMessage( $lastMessage ): void {
+		$this->lastMessage = $lastMessage;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getValidado() {
+		return $this->validado;
+	}
+
+	/**
+	 * @param mixed $validado
+	 */
+	public function setValidado( $validado ): void {
+		$this->validado = $validado;
 	}
 
 

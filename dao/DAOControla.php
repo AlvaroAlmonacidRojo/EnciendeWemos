@@ -9,27 +9,26 @@ require_once '../conexion/Conexion.php';
 require_once '../entities/Wemos.php';
 class DAOControla {
 
-	public function getMacs($idUser){
+	public function addControla($idUser,$macWemos){
 		$conn = Conexion::getPDO();
-		$ordenSql = "SELECT mac,name ,state FROM wemos w, controla c WHERE w.mac = c.macWemos AND c.idUser = $idUser";
+		$ordenSql = "INSERT INTO controla (idUser,macWemos) VALUES (:idUser,:macWemos)";
 		$statement=$conn->prepare($ordenSql);
-		$listaMacs=array();
-		try {
+		$statement->bindParam ( ':idUser',$idUser, PDO::PARAM_INT);
+		$statement->bindParam ( ':macWemos',$macWemos, PDO::PARAM_STR);
+
+		try{
 			$statement->execute();
-			while ($fila = $statement->fetch (PDO::FETCH_ASSOC)) {
-				$wemos = new Wemos();
-				$wemos->setName($fila['name']);
-				$wemos->setMac($fila['mac']);
-				$wemos->setState($fila['state']);
-				$listaMacs[]=$wemos;
+			if($statement->rowCount()>0){
+				return true;
+			}else{
+				return false;
 			}
-		} catch ( PDOException $e ) {
+
+		}catch (PDOException $e){
 			echo $statement->errorInfo();
-		}
-		finally{
+		}finally{
 			$statement=NULL;
 			$conn=NULL;
 		}
-		return $listaMacs;
 	}
 }

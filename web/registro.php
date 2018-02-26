@@ -2,18 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: Alvaro
- * Date: 21/02/2018
- * Time: 11:16
+ * Date: 26/02/2018
+ * Time: 16:15
  */
-require_once '../entities/Wemos.php';
-require_once '../entities/Rele.php';
-require_once '../dao/DAORele.php';
-session_start();
-if(isset($_SESSION['listaWemos'])) {
-	$listaWemos = $_SESSION['listaWemos'];
-}
 ?>
-
 <!doctype html>
 <html lang="es">
 <head>
@@ -26,14 +18,39 @@ if(isset($_SESSION['listaWemos'])) {
 </head>
 <body>
 <div class="container-fluid">
-    <nav>
-        <a href="controller.php?op=cerrarSesion">Cerrar Sesion</a>
-    </nav>
+<div class="row">
 
-    <div class="container">
 
-    </div>
+
+		<div class="col-md-3"></div>
+        <div class="col-md-6">
+        <form action="controller.php?op=altaUsuario" method="POST" class="formulario">
+            <div class="form-group">
+
+                <label>Nombre</label>
+                <input type="email" class="form-control" id="name" name="name" aria-describedby="emailHelp" required placeholder="Nombre">
+                <small id="emailHelp" class="form-text text-muted">Este nombre es único (es un email)</small>
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Contraseña">
+            </div>
+
+	        <input type="hidden" name="rol" value="0" required>
+
+
+
+
+            <button type="submit" class="btn btn-success">Registrar</button>
+            <button type="reset" class="btn btn-danger">Cancel</button>
+            <br><br>
+
+
+        </form>
+        </div>
 </div>
+</div>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

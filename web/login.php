@@ -9,7 +9,7 @@ session_start();
 
 if(isset($_SESSION['idUsuario'])){
 	if($_SESSION['rol']==1){
-		header('Location: altawemos.php');
+		header('Location: altaUsuario.php');
 	}else{
 		header('Location: mainview.php');
 	}
@@ -26,7 +26,7 @@ if(isset($_SESSION['idUsuario'])){
 	<title>Login</title>
 </head>
 <body>
-
+<div class="container-fluid">
 <div class="row">
 	<div class="col-md-3"></div>
 <div class="col-md-6" >
@@ -43,7 +43,7 @@ if(isset($_SESSION['idUsuario'])){
 	</div>
 
 	<button type="submit" class="btn btn-success">Login</button>
-	<button type="text" class="btn btn-primary">Registro</button>
+	<a href="registro.php" type="text" class="btn btn-primary">Registro</a>
 	<br><br>
 	<?php
 
@@ -59,7 +59,7 @@ if(isset($_SESSION['idUsuario'])){
 </form>
 </div>
 </div>
-
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

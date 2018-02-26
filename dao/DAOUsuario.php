@@ -65,4 +65,55 @@ class DAOUsuario {
 
 		return $usuario;
 	}
+
+	public function insertUser($user){
+
+		$conn = Conexion::getPDO();
+		$ordenSql = "INSERT INTO usuario (name,password,rol) VALUES (:name,:password,:rol)";
+		$statement=$conn->prepare($ordenSql);
+		$statement->bindParam ( ':name',$user->getName(), PDO::PARAM_STR);
+		$statement->bindParam ( ':password',$user->getPassword(), PDO::PARAM_STR);
+		$statement->bindParam(':rol',$user->getRol(),PDO::PARAM_INT);
+
+		try{
+			$statement->execute();
+			if($statement->rowCount()>0){
+				return true;
+			}else{
+				return false;
+			}
+
+		}catch (PDOException $e){
+			echo $statement->errorInfo();
+		}finally{
+			$statement=NULL;
+			$conn=NULL;
+		}
+	}
+
+	public function listaUsuario(){
+		$conn = Conexion::getPDO();
+		$ordenSql = "SELECT * FROM usuario ORDER BY name";
+		$statement=$conn->prepare($ordenSql);
+		$listaUsuarios=array();
+		try {
+			$statement->execute();
+			while ($fila = $statement->fetch (PDO::FETCH_ASSOC)) {
+				$usuario = new Usuario();
+				$usuario->setRol($fila['rol']);
+				$usuario->setPassword($fila['password']);
+				$usuario->setName($fila['name']);
+				$usuario->setIdUsuario($fila['idUsuario']);
+				$listaUsuarios[]=$usuario;
+
+			}
+		} catch ( PDOException $e ) {
+			echo $statement->errorInfo();
+		}
+		finally{
+			$statement=NULL;
+			$conn=NULL;
+		}
+		return $listaUsuarios;
+	}
 }

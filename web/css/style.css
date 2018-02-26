@@ -26,3 +26,24 @@ nav {
     background: #212E63;
     padding: 3em;
 }
+
+table{
+    margin-top: 20%;
+    color: #212E63;
+}
+
+thead {
+    background: #212E63;
+    color: white;
+}
+a {
+    color: white;
+}
+
+a:hover {
+    color: white;
+}
+a:link
+{
+    text-decoration:none;
+}

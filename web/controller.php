@@ -33,7 +33,9 @@ switch ($op){
 			unset($_SESSION['errorLogin']);
 			$_SESSION['rol']=$usuario->getRol();
 			if($usuario->getRol()==1){
-				header('Location:altawemos.php');
+				$_SESSION['listaUsuario']=$daoUsuario->listaUsuario();
+				$_SESSION['listaAllWemos']=$daoWemos->listaWemos();
+				header('Location:altaUsuario.php');
 			}else{
 				$listaWemos = $daoWemos->listaWemosId($_SESSION['idUsuario']);
 				$_SESSION['listaWemos'] = $listaWemos;
@@ -79,12 +81,73 @@ switch ($op){
 		break;
 
 	case "actualizar":
-		$listaWemos = $daoWemos->listaWemosId($_SESSION['idUsuario']);
-		$_SESSION['listaWemos'] = $listaWemos;
-		header('Location: mainview.php');
+	$listaWemos = $daoWemos->listaWemosId($_SESSION['idUsuario']);
+	$_SESSION['listaWemos'] = $listaWemos;
+	header('Location: mainview.php');
+	break;
+
+	case "actualizarAdmin":
+		$_SESSION['listaAllWemos'] = $daoWemos->listaWemos();
+		header('Location: altaUsuario.php');
 		break;
 
-	case "loadWemos":
-		header('Location:loadWemos.php');
+
+	case "altaUsuario":
+		$name = $_REQUEST['name'];
+		$password = $_REQUEST['password'];
+		$rol = intval($_REQUEST['rol']);
+
+		$user = new Usuario();
+		$user->setName($name);
+		$user->setPassword($password);
+		$user->setRol($rol);
+
+		if($daoUsuario->insertUser($user)){
+			$_SESSION['usuarioAdd']="El usuario se ha añadido correctamente";
+			$_SESSION['listaUsuario']=$daoUsuario->listaUsuario();
+			header('Location: altaUsuario.php');
+		}
+		break;
+
+
+	case "addWemos":
+		$name = $_REQUEST['name'];
+		$mac = $_REQUEST['mac'];
+		$nameRele1 = $_REQUEST['nameRele1'];
+		$descripcionRele1 = $_REQUEST['descripcionRele1'];
+		$nameRele2 = $_REQUEST['nameRele2'];
+		$descripcionRele2 = $_REQUEST['descripcionRele2'];
+
+		$wemo = new Wemos();
+		$wemo->setName($name);
+		$wemo->setMac($mac);
+
+		$rele1 = new Rele();
+		$rele1->setName($nameRele1);
+		$rele1->setDescription($descripcionRele2);
+		$rele1->setMacWemos($mac);
+
+		$rele2 = new Rele();
+		$rele2->setName($nameRele2);
+		$rele2->setDescription($descripcionRele2);
+		$rele2->setMacWemos($mac);
+
+		if($daoWemos->addWemos($wemo,$_SESSION['idUsuario'],$rele1,$rele2)){
+			$listaWemos = $daoWemos->listaWemosId($_SESSION['idUsuario']);
+			$_SESSION['listaWemos'] = $listaWemos;
+			header('Location: mainview.php');
+		}else{
+
+		}
+
+		break;
+
+	case "validar":
+		$mac= $_REQUEST['mac'];
+
+		if($daoWemos->validarWemos($mac)){
+			$_SESSION['listaAllWemos']=$daoWemos->listaWemos();
+			header('Location: altaUsuario.php');
+		}
 		break;
 }
