@@ -98,7 +98,7 @@ if(isset($_SESSION['listaWemos'])) {
 	<div class="row" id="sectionWemos">
 	<?php
 	foreach ($listaWemos as $wemos) {
-
+    if($wemos->getState()==1){
 	    if($wemos->getValidado()==1){
 		    $validado = "Validado";
         }else{
@@ -155,7 +155,7 @@ if(isset($_SESSION['listaWemos'])) {
 
 
 		<?php
-		}
+		}}
 		?>
 		</div>
 
