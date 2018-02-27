@@ -104,9 +104,18 @@ if(isset($_SESSION['listaWemos'])) {
         }else{
 		    $validado = "No validado";
         }
+
+        if($wemos->getState()==1){
+	        $stateWemos = "Encendido";
+	        $classWemos = "classEncendido";
+        }else{
+	        $stateWemos = "Apagado";
+	        $classWemos = "classApagado";
+        }
 	?>
 
 		<div class="col-md-12 wemos text-center">
+            <h3 class="<?php echo $classWemos;?>"><?php echo $stateWemos;?></h3>
 		<h2><?php echo $wemos->getName(); ?>(<?php echo $validado; ?>)</h2><br>
 
 
@@ -117,16 +126,18 @@ if(isset($_SESSION['listaWemos'])) {
 			if($rele->getState()==1){
 				$state = "Encendido";
 				$clase = "danger";
+				$classRele = "classEncendido";
 				$accion="Apagar";
 				$stateValor = 0;
 			}else{
 				$state = "Apagado";
 				$clase = "success";
 				$accion = "Encender";
+				$classRele = "classApagado";
 				$stateValor = 1;
 			}
 			?>
-			<p>Estado (<?php echo $state;?>)</p>
+            <p>Estado <small class="<?php echo $classRele;?>">(<?php echo $state;?>)</small></p>
 			<form action="controller.php?op=changeState" method="POST">
 				<input type="hidden" value="<?php echo $stateValor;?>" name="state">
 				<input type="hidden" value="<?php echo $rele->getIdRele();?>" name="idRele">
