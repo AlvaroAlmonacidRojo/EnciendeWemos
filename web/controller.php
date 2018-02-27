@@ -124,7 +124,7 @@ switch ($op){
 
 		$rele1 = new Rele();
 		$rele1->setName($nameRele1);
-		$rele1->setDescription($descripcionRele2);
+		$rele1->setDescription($descripcionRele1);
 		$rele1->setMacWemos($mac);
 
 		$rele2 = new Rele();
