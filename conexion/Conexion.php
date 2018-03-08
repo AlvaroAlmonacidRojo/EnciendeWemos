@@ -15,8 +15,8 @@ class Conexion {
 		$dns = "mysql:host={$dbhost};dbname={$dbname}";
 		try{
 			$pdo=new PDO($dns, $dbuser, $dbpass,array(PDO::ATTR_PERSISTENT=>true));
+			$pdo->exec("SET NAMES 'utf8'");
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$pdo->prepare("SET NAMES 'utf8'");
 			return $pdo;
 		}catch(PDOException $e) {
 			echo $e->getMessage();
